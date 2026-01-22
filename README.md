@@ -3,15 +3,6 @@ An internal web platform used by frontline officers to: Submit incident reports,
 
 **Disclaimer**
 Also a sandbox for to familiarize and practice concepts for the following tech stacks,
-Frontend (React)
-   ↓
-Backend API (Python FastAPI / Node.js)
-   ↓
-Database (PostgreSQL + optional NoSQL)
-   ↓
-AI Service (Python, model inference)
-   ↓
-Cloud + DevOps (Docker, CI/CD, Cloud)
 
 Frontend: React + TypeScript
 Backend: Python + FastAPI
