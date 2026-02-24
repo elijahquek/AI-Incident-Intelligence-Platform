@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import SessionLocal
 from app.models.incident import Incident
 from app.schemas.incident import IncidentCreate, IncidentResponse
+from app.core.dependencies import get_current_user, require_role
 
 router = APIRouter(prefix="/incidents", tags=["incidents"])
 
@@ -14,7 +15,7 @@ def get_db():
         db.close()
 
 @router.post("/", response_model=IncidentResponse)
-def create_incident(incident: IncidentCreate, db: Session = Depends(get_db)):
+def create_incident(incident: IncidentCreate, db: Session = Depends(get_db), user=Depends(require_role("officer"))):
     new_incident = Incident(
         title=incident.title,
         description=incident.description,
@@ -35,5 +36,5 @@ def get_incident(incident_id: int, db: Session = Depends(get_db)):
     return incident
 
 @router.get("/", response_model=list[IncidentResponse])
-def list_incidents(db: Session = Depends(get_db)):
+def list_incidents(db: Session = Depends(get_db), user=Depends(get_current_user)):
     return db.query(Incident).all()
