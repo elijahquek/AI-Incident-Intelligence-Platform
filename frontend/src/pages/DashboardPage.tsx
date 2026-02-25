@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { getIncidents } from "../api/incidentApi"
+import { clearToken } from "../utils/tokenstorage"
+import { useNavigate } from "react-router-dom"
 
 export default function DashboardPage() {
 
@@ -14,6 +16,13 @@ export default function DashboardPage() {
     loadIncidents()
   }, [])
 
+  const navigate = useNavigate()
+
+  function logout() {
+    clearToken()
+    navigate("/")
+  }
+  
   return (
     <div>
       <h2>Dashboard</h2>
@@ -25,6 +34,7 @@ export default function DashboardPage() {
           <p>Severity: {incident.severity}</p>
         </div>
       ))}
+      <button onClick={logout}>Logout</button>
     </div>
   )
 }
