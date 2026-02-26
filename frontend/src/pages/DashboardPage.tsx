@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { getIncidents } from "../api/incidentApi"
 import { clearToken } from "../utils/tokenstorage"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import IncidentCard from "../components/IncidentCard"
 
 export default function DashboardPage() {
 
@@ -27,13 +28,14 @@ export default function DashboardPage() {
     <div>
       <h2>Dashboard</h2>
 
-      {incidents.map((incident) => (
-        <div key={incident.id}>
-          <h3>{incident.title}</h3>
-          <p>{incident.description}</p>
-          <p>Severity: {incident.severity}</p>
-        </div>
-      ))}
+      <Link to="/incidents/new">
+        Create Incident
+      </Link>
+      
+    {incidents.map((incident) => (
+      <IncidentCard key={incident.id} incident={incident} />
+    ))}
+    
       <button onClick={logout}>Logout</button>
     </div>
   )
